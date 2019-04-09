@@ -1,6 +1,6 @@
 [submodule "core/client"]
 	path = core/client
-	url = git@github.com:shangbo/Ghost-Admin.git
+	url = git@github.com:shangbo/soul-admin.git
 [submodule "content/themes/casper"]
 	path = content/themes/casper
-	url = git@github.com:shangbo/casper.git
+	url = git@github.com:shangbo/soul-casper.git
