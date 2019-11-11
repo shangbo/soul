@@ -1,6 +1,6 @@
 {
   "name": "@loftysoul/soul",
-  "version": "2.19.7",
+  "version": "2.19.8",
   "description": "The professional Content Management System, based ghost",
   "author": "Ghost Foundation,Shawn Shang",
   "homepage": "https://ghost.org",
@@ -33,7 +33,7 @@
     "fixmodulenotdefined": "yarn cache clean && cd core/client && rm -rf node_modules tmp dist && yarn && cd ../../"
   },
   "engines": {
-    "node": "^6.9.0 || ^8.9.0 || ^10.13.0",
+    "node": "^6.9.0 || ^8.9.0 || ^10.13.0 || ^12.12.0",
     "cli": "^1.9.0"
   },
   "dependencies": {
@@ -110,12 +110,12 @@
     "unidecode": "0.1.8",
     "uuid": "3.3.2",
     "validator": "6.3.0",
-    "xml": "1.0.1"
+    "xml": "1.0.1",
+    "sqlite3": "4.0.6"
   },
   "optionalDependencies": {
     "@tryghost/html-to-mobiledoc": "0.2.4",
-    "sharp": "0.21.3",
-    "sqlite3": "4.0.6"
+    "sharp": "0.21.3"
   },
   "devDependencies": {
     "eslint": "5.12.1",

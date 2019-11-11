@@ -8,5 +8,6 @@
     ],
     "extends": [
         "plugin:ghost/node"
-    ]
+    ],
+    "rules": {"no-console":"off"}
 }
