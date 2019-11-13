@@ -1,3 +1,19 @@
+
+
+# Soul Content Management System
+
+### Based on Ghost Ghost   
+Github project:https://github.com/TryGhost/Ghost
+
+Optimized Somethins as follow points:
+
+    1. editor code highlight
+    2. fixed chinese input in koenig
+    3. change some editor styles
+    4. fixed codemirror highlight bug
+
+---
+
 <p align="center">
   <a href="https://ghost.org">
     <img src="https://user-images.githubusercontent.com/120485/43974508-b64b2fe8-9cd2-11e8-8e58-707254b8817c.png" width="140px" alt="Ghost" />
