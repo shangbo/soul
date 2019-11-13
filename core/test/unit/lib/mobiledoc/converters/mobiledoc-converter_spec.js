@@ -53,11 +53,11 @@ describe('Mobiledoc converter', function () {
                     [10, 3],
                     [10, 4],
                     [10, 5],
-                    [1, 'p', []],
+                    [1, 'p', []]
                 ]
             };
 
-            converter.render(mobiledoc, 2).should.eql('<p>One<br>Two</p><!--kg-card-begin: markdown--><h1 id="markdowncard">Markdown card</h1>\n<p>Some markdown</p>\n<!--kg-card-end: markdown--><p>Three</p><!--kg-card-begin: hr--><hr><!--kg-card-end: hr--><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-width-wide kg-card-hascaption"><img src="/content/images/2018/04/NatGeo06.jpg" class="kg-image"><figcaption>Birdies</figcaption></figure><!--kg-card-end: image--><p>Four</p><!--kg-card-begin: html--><h2>HTML card</h2>\n<div><p>Some HTML</p></div><!--kg-card-end: html--><!--kg-card-begin: embed--><figure class="kg-card kg-embed-card"><h2>Embed card</h2></figure><!--kg-card-end: embed--><!--kg-card-begin: gallery--><figure class="kg-card kg-gallery-card kg-width-wide"><div class="kg-gallery-container"></div></figure><!--kg-card-end: gallery-->');
+            converter.render(mobiledoc, 2).should.eql('<p>One<br>Two</p><!--kg-card-begin: markdown--><h1 id="markdowncard">Markdown card</h1>\n<p>Some markdown</p>\n<!--kg-card-end: markdown--><p>Three</p><hr><figure class="kg-card kg-image-card kg-width-wide kg-card-hascaption"><img src="/content/images/2018/04/NatGeo06.jpg" class="kg-image"><figcaption>Birdies</figcaption></figure><p>Four</p><!--kg-card-begin: html--><h2>HTML card</h2>\n<div><p>Some HTML</p></div><!--kg-card-end: html--><figure class="kg-card kg-embed-card"><h2>Embed card</h2></figure><figure class="kg-card kg-gallery-card kg-width-wide"><div class="kg-gallery-container"></div></figure>');
         });
 
         it('removes final blank paragraph', function () {
@@ -105,6 +105,22 @@ describe('Mobiledoc converter', function () {
             };
 
             converter.render(mobiledoc, 2).should.eql('');
+        });
+
+        it('doesn\'t remove last paragraph if it has markups', function () {
+            let mobiledoc = {
+                version: '0.3.1',
+                markups: [['em']],
+                atoms: [],
+                cards: [],
+                sections: [
+                    [1, 'p', [
+                        [0, [0], 1, 'This should be kept']
+                    ]]
+                ]
+            };
+
+            converter.render(mobiledoc, 2).should.eql('<p><em>This should be kept</em></p>');
         });
 
         it('adds id attributes to headings', function () {

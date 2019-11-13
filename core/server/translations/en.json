@@ -26,9 +26,6 @@
                     "invitedByName": "{invitedByName} has invited you to join {blogName}"
                 }
             },
-            "clients": {
-                "clientNotFound": "Client not found"
-            },
             "actions": {
                 "images": {
                     "upload": "upload image"
@@ -38,35 +35,15 @@
     },
     "errors": {
         "apps": {
-            "failedToParseActiveAppsSettings": {
-                "error": "Failed to parse active_apps setting value: {message}",
-                "context": "Your apps will not be loaded.",
-                "help": "Check your settings table for typos in the active_apps value. It should look like: [\"app-1\", \"app2\"] (double quotes required)."
-            },
             "appWillNotBeLoaded": {
                 "error": "The app will not be loaded",
                 "help": "Check with the app creator, or read the app documentation for more details on app requirements"
             },
-            "permissionsErrorLoadingApp": {
-                "error": "Error loading app named {name}; problem reading permissions: {message}"
-            },
-            "noInstallMethodLoadingApp": {
-                "error": "Error loading app named {name}; no install() method defined."
-            },
             "noActivateMethodLoadingApp": {
                 "error": "Error loading app named {name}; no activate() method defined."
             },
-            "accessResourceWithoutPermission": {
-                "error": "The App \"{name}\" attempted to perform an action or access a resource ({perm}.{method}) without permission."
-            },
             "mustProvideAppName": {
                 "error": "Must provide an app name for api context"
-            },
-            "mustProvideAppPermissions": {
-                "error": "Must provide app permissions"
-            },
-            "unsafeAppRequire": {
-                "error": "Unsafe App require: {msg}"
             }
         },
         "middleware": {
@@ -74,11 +51,6 @@
                 "versionMismatch": "Client request for {clientVersion} does not match server version {serverVersion}."
             },
             "auth": {
-                "publicAPIDisabled": {
-                    "error": "Permission error! Public API is disabled.",
-                    "context": "Please enable the deprecated v0.1 Public API or switch to using the v2 Content API."
-                },
-                "clientAuthenticationFailed": "Client Authentication Failed",
                 "clientCredentialsNotProvided": "Client credentials were not provided",
                 "clientCredentialsNotValid": "Client credentials were not valid",
                 "forInformationRead": "For information on how to fix this, please read {url}.",
@@ -95,14 +67,10 @@
                 "unknownContentApiKey": "Unknown Content API Key",
                 "adminApiKidMissing": "Admin API kid missing.",
                 "invalidApiKeyType": "Invalid API Key type",
+                "invalidRequest": "Invalid Request",
                 "invalidToken": "Invalid token",
                 "invalidTokenWithMessage": "Invalid token: {message}",
                 "incorrectAuthHeaderFormat": "Authorization header format is \"Authorization: Ghost [token]\""
-            },
-            "oauth": {
-                "invalidClient": "Invalid client.",
-                "invalidRefreshToken": "Invalid refresh token.",
-                "refreshTokenExpired": "Refresh token expired."
             },
             "privateblogging": {
                 "wrongPassword": "Wrong password"
@@ -231,9 +199,6 @@
             "general": {
                 "sql": "Could not understand request."
             },
-            "subscriber": {
-                "notEnoughPermission": "You do not have permission to perform this action"
-            },
             "invite": {
                 "notEnoughPermission": "You do not have permission to perform this action"
             },
@@ -284,7 +249,8 @@
                 "userNotFound": "User not found",
                 "ownerNotFound": "Owner not found",
                 "onlyOwnerCanTransferOwnerRole": "Only owners are able to transfer the owner role.",
-                "onlyAdmCanBeAssignedOwnerRole": "Only administrators can be assigned the owner role."
+                "onlyAdmCanBeAssignedOwnerRole": "Only administrators can be assigned the owner role.",
+                "onlyActiveAdmCanBeAssignedOwnerRole": "Only active administrators can be assigned the owner role."
             },
             "api_key": {
                 "apiKeyNotFound": "API Key not found"
@@ -346,9 +312,6 @@
                 "invalidTokenProvided": "Invalid token provided",
                 "tokenRevocationFailed": "Token revocation failed"
             },
-            "clients": {
-                "clientNotFound": "Client not found."
-            },
             "configuration": {
                 "invalidKey": "Invalid key"
             },
@@ -409,12 +372,6 @@
             "slugs": {
                 "couldNotGenerateSlug": "Could not generate slug.",
                 "unknownSlugType": "Unknown slug type '{type}'."
-            },
-            "subscribers": {
-                "missingFile": "Please select a csv.",
-                "invalidFile": "Please select a valid CSV file to import.",
-                "subscriberNotFound": "Subscriber not found.",
-                "subscriberAlreadyExists": "Email address is already subscribed."
             },
             "members": {
                 "memberNotFound": "Member not found.",
@@ -596,15 +553,14 @@
             "flagMustBeEnabled": "The {flagName} flag must be enabled in labs if you wish to use the \\{\\{{helperName}\\}\\} helper.",
             "seeLink": "See {url}",
             "mustBeCalledAsBlock": "The \\{\\{{helperName}\\}\\} helper must be called as a block. E.g.  \\{\\{#{helperName}\\}\\} \\{\\{/{helperName}\\}\\}",
+            "asset": {
+                "pathIsRequired": "The \\{\\{asset\\}\\} helper must be passed a path"
+            },
             "foreach": {
                 "iteratorNeeded": "Need to pass an iterator to #foreach"
             },
             "get": {
-                "invalidResource": "Invalid resource given to get helper",
-                "apiRequired": {
-                    "message": "The \\{\\{#get\\}\\} helper requires your theme to have API access.",
-                    "context": "Please enable the v2 API via your theme's package.json file."
-                }
+                "invalidResource": "Invalid resource given to get helper"
             },
             "has": {
                 "invalidAttribute": "Invalid or no attribute given to has helper"
@@ -615,6 +571,12 @@
             "is": {
                 "invalidAttribute": "Invalid or no attribute given to is helper"
             },
+            "link": {
+                "hrefIsRequired": "The \\{\\{#link\\}\\}\\{\\{/link\\}\\} helper requires an href=\"\" attribute."
+            },
+            "link_class": {
+                "forIsRequired": "The \\{\\{link_class\\}\\} helper requires a for=\"\" attribute."
+            },
             "navigation": {
                 "invalidData": "navigation data is not an object or is a function",
                 "valuesMustBeDefined": "All values must be defined for label, url and current",
@@ -624,7 +586,7 @@
                 "isDeprecated": "Warning: pageUrl is deprecated, please use page_url instead\nThe helper pageUrl has been replaced with page_url in Ghost 0.4.2, and will be removed entirely in Ghost 0.6\nIn your theme's pagination.hbs file, pageUrl should be renamed to page_url"
             },
             "pagination": {
-                "invalidData": "The \\{\\{pagination\\}\\} helper was used outside of a paginated context. See https://docs.ghost.org/api/handlebars-themes/helpers/pagination/.",
+                "invalidData": "The \\{\\{pagination\\}\\} helper was used outside of a paginated context. See https://ghost.org/docs/api/handlebars-themes/helpers/pagination/.",
                 "valuesMustBeDefined": "All values must be defined for page, pages, limit and total",
                 "nextPrevValuesMustBeNumeric": "Invalid value, Next/Prev must be a number",
                 "valuesMustBeNumeric": "Invalid value, check page, pages, limit and total are numbers"
