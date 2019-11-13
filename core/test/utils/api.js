@@ -95,18 +95,21 @@ const login = (request, API_URL) => {
             .send({
                 grant_type: 'password',
                 username: request.user.email,
-                password: 'Sl1m3rson99',
-                client_id: 'ghost-admin',
-                client_secret: 'not_available'
+                password: 'Sl1m3rson99'
             })
             .then(function then(res) {
-                if (res.statusCode !== 200 && res.statusCode !== 201) {
+                if (res.statusCode === 302) {
+                    // This can happen if you already have an instance running e.g. if you've been using Ghost CLI recently
+                    return reject(new common.errors.GhostError({
+                        message: 'Ghost is redirecting, do you have an instance already running on port 2369?'
+                    }));
+                } else if (res.statusCode !== 200 && res.statusCode !== 201) {
                     return reject(new common.errors.GhostError({
                         message: res.body.errors[0].message
                     }));
                 }
 
-                resolve(res.headers['set-cookie'] || res.body.access_token);
+                resolve(res.headers['set-cookie']);
             }, reject);
     });
 };

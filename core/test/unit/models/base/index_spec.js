@@ -5,8 +5,7 @@ var should = require('should'),
     security = require('../../../../server/lib/security'),
     models = require('../../../../server/models'),
     common = require('../../../../server/lib/common'),
-    urlService = require('../../../../server/services/url'),
-    filters = require('../../../../server/filters'),
+    urlUtils = require('../../../../server/lib/url-utils'),
     testUtils = require('../../../utils');
 
 describe('Models: base', function () {
@@ -24,8 +23,7 @@ describe('Models: base', function () {
 
         beforeEach(function () {
             sinon.stub(security.string, 'safe');
-            sinon.stub(filters, 'doFilter').resolves();
-            sinon.stub(urlService.utils, 'getProtectedSlugs').returns(['upsi', 'schwupsi']);
+            sinon.stub(urlUtils, 'getProtectedSlugs').returns(['upsi', 'schwupsi']);
 
             Model = sinon.stub();
             Model.prototype = {
@@ -104,7 +102,7 @@ describe('Models: base', function () {
 
         it('contains invisible unicode', function () {
             Model.findOne.resolves(false);
-            security.string.safe.withArgs('abc').returns('abc');
+            security.string.safe.withArgs('abc\u0008').returns('abc');
 
             return models.Base.Model.generateSlug(Model, 'abc\u0008', options)
                 .then((slug) => {
@@ -288,7 +286,7 @@ describe('Models: base', function () {
                 life: 'suffering'
             };
             const unfilteredOptions = {
-                id: 'something real special',
+                id: 'something real special'
             };
             const model = models.Base.Model.forge({});
             const savedModel = models.Base.Model.forge({});
@@ -344,7 +342,7 @@ describe('Models: base', function () {
                 db: 'cooper'
             };
             const unfilteredOptions = {
-                id: 'something real special',
+                id: 'something real special'
             };
             const model = models.Base.Model.forge({});
             const filterOptionsSpy = sinon.spy(models.Base.Model, 'filterOptions');

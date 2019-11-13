@@ -21,6 +21,28 @@ module.exports = createCard({
         code.appendChild(dom.createTextNode(payload.code));
         pre.appendChild(code);
 
-        return pre;
+        if (payload.caption) {
+            let figure = dom.createElement('figure');
+            figure.setAttribute('class', 'kg-card kg-code-card');
+            figure.appendChild(pre);
+
+            let figcaption = dom.createElement('figcaption');
+            figcaption.appendChild(dom.createRawHTMLSection(payload.caption));
+            figure.appendChild(figcaption);
+
+            return figure;
+        } else {
+            return pre;
+        }
+    },
+
+    absoluteToRelative(urlUtils, payload, options) {
+        payload.caption = payload.caption && urlUtils.htmlAbsoluteToRelative(payload.caption, options);
+        return payload;
+    },
+
+    relativeToAbsolute(urlUtils, payload, options) {
+        payload.caption = payload.caption && urlUtils.htmlRelativeToAbsolute(payload.caption, options);
+        return payload;
     }
 });
