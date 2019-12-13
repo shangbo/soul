@@ -6,6 +6,7 @@ docs/**
 _site/**
 content/adapters/**
 !content/adapters/README.md
+!content/adapters/storage/**/*
 content/apps/**
 !content/apps/README.md
 content/data/**

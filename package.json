@@ -77,6 +77,7 @@
     "extract-zip": "1.6.7",
     "fs-extra": "8.1.0",
     "ghost-ignition": "3.1.0",
+    "ghost-oss-store": "^1.1.1",
     "ghost-storage-base": "0.0.3",
     "glob": "7.1.6",
     "got": "9.6.0",
