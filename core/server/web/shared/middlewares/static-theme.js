@@ -22,7 +22,6 @@ function forwardToExpressStatic(req, res, next) {
     if (!themeUtils.getActive()) {
         return next();
     }
-
     const configMaxAge = config.get('caching:theme:maxAge');
 
     express.static(themeUtils.getActive().path,

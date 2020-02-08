@@ -1,5 +1,6 @@
 const express = require('express');
 const apiv2 = require('../../../../api/v2');
+const apiv1 = require('../../../../api/v0.1');
 const mw = require('./middleware');
 
 const shared = require('../../../shared');
@@ -22,6 +23,7 @@ module.exports = function apiRoutes() {
 
     // ## Configuration
     router.get('/config', mw.authAdminApi, http(apiv2.config.read));
+    router.get('/configuration', http(apiv1.configuration.read));
 
     // ## Posts
     router.get('/posts', mw.authAdminApi, http(apiv2.posts.browse));

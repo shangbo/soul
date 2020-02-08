@@ -1,6 +1,7 @@
 const express = require('express');
 const apiCanary = require('../../../../api/canary');
 const mw = require('./middleware');
+const apiv1 = require('../../../../api/v0.1');
 
 const shared = require('../../../shared');
 
@@ -22,6 +23,7 @@ module.exports = function apiRoutes() {
 
     // ## Configuration
     router.get('/config', mw.authAdminApi, http(apiCanary.config.read));
+    router.get('/configuration', http(apiv1.configuration.read));
 
     // ## Posts
     router.get('/posts', mw.authAdminApi, http(apiCanary.posts.browse));

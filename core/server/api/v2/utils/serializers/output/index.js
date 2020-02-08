@@ -97,5 +97,9 @@ module.exports = {
 
     get site() {
         return require('./site');
+    },
+
+    get configuration() {
+        return require('./configuration');
     }
 };

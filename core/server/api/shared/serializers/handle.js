@@ -82,7 +82,7 @@ module.exports.input = (apiConfig, apiSerializers, frame) => {
  */
 module.exports.output = (response = {}, apiConfig, apiSerializers, frame) => {
     debug('output');
-
+    
     const tasks = [];
 
     if (!apiConfig) {
@@ -100,7 +100,6 @@ module.exports.output = (response = {}, apiConfig, apiSerializers, frame) => {
             return apiSerializers.all.before(response, apiConfig, frame);
         });
     }
-
     if (apiSerializers[apiConfig.docName]) {
         if (apiSerializers[apiConfig.docName].all) {
             tasks.push(function serializeOptionsShared() {
@@ -120,7 +119,6 @@ module.exports.output = (response = {}, apiConfig, apiSerializers, frame) => {
             return apiSerializers.all.after(apiConfig, frame);
         });
     }
-
     debug(tasks);
     return sequence(tasks);
 };

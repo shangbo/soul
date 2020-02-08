@@ -152,7 +152,6 @@ const STAGES = {
         if (!apiImpl.query) {
             return Promise.reject(new common.errors.IncorrectUsageError());
         }
-
         return apiImpl.query(frame);
     }
 };
