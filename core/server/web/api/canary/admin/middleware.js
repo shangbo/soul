@@ -3,6 +3,7 @@ const auth = require('../../../../services/auth');
 const shared = require('../../../shared');
 
 const notImplemented = function (req, res, next) {
+    
     // CASE: user is logged in, allow
     if (!req.api_key) {
         return next();

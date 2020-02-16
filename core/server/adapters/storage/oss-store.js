@@ -5,6 +5,7 @@ var Promise = require('bluebird');
 var OSS = require('ali-oss');
 var utils = require('./oss-utils');
 var baseStore = require('ghost-storage-base');
+var crypto = require('crypto');
 
 class OssStore extends baseStore {
     constructor(config) {
@@ -13,16 +14,27 @@ class OssStore extends baseStore {
         this.client = new OSS(this.options);
     }
 
-    save(file, targetDir) {
-        console.log(targetDir);
+    save(file) {
+        // console.log(targetDir);
+        // console.log(file);
+        // console.log(file.path);
         var client = this.client;
         var origin = this.options.origin;
-        var key = this.getFileKey(file);
+        
+        // console.log(key);
 
         return new Promise(function (resolve, reject) {
+            var fsHash = crypto.createHash('md5');
+            var ext = path.extname(file.name).toLowerCase();
+            
+            var buffer = fs.readFileSync(file.path);
+            fsHash.update(buffer);
+            var md5 = fsHash.digest('hex');
+            console.log(md5)
+            var stream = fs.createReadStream(file.path);
             return client.put(
-                key,
-                fs.createReadStream(file.path)
+                md5 + ext,
+                stream
             ).then(function (result) {
                 // console.log(result)
                 if (origin) {
@@ -92,34 +104,6 @@ class OssStore extends baseStore {
                 reject(false);
             });
         });
-    }
-
-    getFileKey(file) {
-        var keyOptions = this.options.fileKey;
-
-        if (keyOptions) {
-            var getValue = function (obj) {
-                return typeof obj === 'function' ? obj() : obj;
-            };
-            var ext = path.extname(file.name);
-            var name = path.basename(file.name, ext);
-
-            if (keyOptions.safeString) {
-                name = utils.safeString(name);
-            }
-
-            if (keyOptions.prefix) {
-                name = path.join(keyOptions.prefix, name);
-            }
-
-            if (keyOptions.suffix) {
-                name += getValue(keyOptions.suffix);
-            }
-
-            return name + ext.toLowerCase();
-        }
-
-        return null;
     }
 }
 

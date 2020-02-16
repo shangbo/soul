@@ -26,6 +26,8 @@ const STAGES = {
             const tasks = [];
 
             // CASE: do validation completely yourself
+            
+            
             if (typeof apiImpl.validation === 'function') {
                 debug('validation function call');
                 return apiImpl.validation(frame);
@@ -198,7 +200,7 @@ const pipeline = (apiController, apiUtils, apiType) => {
             } else {
                 options = {};
             }
-
+            
             // CASE: http helper already creates it's own frame.
             if (!(options instanceof shared.Frame)) {
                 debug(`Internal API request for ${docName}.${method}`);
@@ -215,17 +217,15 @@ const pipeline = (apiController, apiUtils, apiType) => {
             } else {
                 frame = options;
             }
-
             // CASE: api controller *can* be a single function, but it's not recommended to disable the framework.
             if (typeof apiImpl === 'function') {
                 debug('ctrl function call');
                 return apiImpl(frame);
             }
-
             frame.apiType = apiType;
             frame.docName = docName;
             frame.method = method;
-
+            
             return Promise.resolve()
                 .then(() => {
                     return STAGES.validation.input(apiUtils, apiConfig, apiImpl, frame);

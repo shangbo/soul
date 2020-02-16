@@ -36,6 +36,7 @@ const single = name => (req, res, next) => {
                 res.on('close', deleteFiles);
             }
         }
+   
         next();
     });
 };

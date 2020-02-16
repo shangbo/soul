@@ -24,6 +24,9 @@ module.exports = function content(options = {}) {
     if (this.html === null) {
         this.html = '';
     }
+    // tab缩进不生效，替换为4个空格
+    // eslint-disable-next-line no-control-regex
+    this.html = this.html.replace(new RegExp('	','gm'),'&nbsp;&nbsp;&nbsp;&nbsp;');
 
     if (runTruncate) {
         return new SafeString(
